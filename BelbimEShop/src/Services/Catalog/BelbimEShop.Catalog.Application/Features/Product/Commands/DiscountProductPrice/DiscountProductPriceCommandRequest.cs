@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProd
     //DataTransferObject
 
     //1. İsteği tutan nesne:
-    public record DiscountProductPriceCommandRequest(long ProductId, decimal DiscountRate);
+    public record DiscountProductPriceCommandRequest(long ProductId, decimal DiscountRate) : IRequest<DiscountProductPriceCommandResponse>;
 
     //2. İşlendikten sonra yanıtı tutan nesne:
 

@@ -1,4 +1,5 @@
 ﻿using BelbimEShop.Catalog.Domain.Repositories;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProductPrice
 {
-    public class DiscountProductPriceCommandRequestHandler
+    public class DiscountProductPriceCommandRequestHandler : IRequestHandler<DiscountProductPriceCommandRequest, DiscountProductPriceCommandResponse>
     {
         private readonly IProductRepository productRepository;
 
@@ -16,7 +17,7 @@ namespace BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProd
             this.productRepository = productRepository;
         }
 
-        public async Task<DiscountProductPriceCommandResponse> Handle(DiscountProductPriceCommandRequest request)
+        public async Task<DiscountProductPriceCommandResponse> Handle(DiscountProductPriceCommandRequest request, CancellationToken cancellationToken)
         {
             //şimdi db ile çalış......
             //hangi db?,
@@ -33,5 +34,7 @@ namespace BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProd
 
             return new DiscountProductPriceCommandResponse(true, "Ürün fiyatı güncellendi");
         }
+
+       
     }
 }

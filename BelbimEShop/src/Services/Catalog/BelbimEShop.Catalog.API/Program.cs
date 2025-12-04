@@ -1,3 +1,4 @@
+using BelbimEShop.Catalog.Application.Contracts;
 using BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProductPrice;
 using BelbimEShop.Catalog.Domain.Repositories;
 using BelbimEShop.Catalog.Infrastructure.Repositories;
@@ -13,6 +14,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<DiscountProductPriceCommandRequestHandler>();
 builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
+
+builder.Services.AddMediatR(config =>
+{
+    //config.RegisterServicesFromAssemblyContaining<DiscountProductPriceCommandRequest>();
+    config.RegisterServicesFromAssemblyContaining<IRegisterMarker>();
+});
 
 
 var app = builder.Build();
