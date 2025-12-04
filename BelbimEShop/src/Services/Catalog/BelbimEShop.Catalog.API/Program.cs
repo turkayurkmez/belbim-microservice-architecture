@@ -1,7 +1,9 @@
 using BelbimEShop.Catalog.Application.Contracts;
 using BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProductPrice;
 using BelbimEShop.Catalog.Domain.Repositories;
+using BelbimEShop.Catalog.Infrastructure.Persistance;
 using BelbimEShop.Catalog.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,11 @@ builder.Services.AddMediatR(config =>
     //config.RegisterServicesFromAssemblyContaining<DiscountProductPriceCommandRequest>();
     config.RegisterServicesFromAssemblyContaining<IRegisterMarker>();
 });
+
+
+var connectionString = builder.Configuration.GetConnectionString("db");
+
+builder.Services.AddDbContext<CatalogDbContext>(opt => opt.UseSqlServer(connectionString));
 
 
 var app = builder.Build();
