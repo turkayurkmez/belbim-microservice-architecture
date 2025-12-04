@@ -22,9 +22,11 @@ namespace BelbimEShop.Catalog.Domain.Aggregates
 
         public int? CategoryId { get; set; }
 
+        public Category? Category { get; set; }
+
         public Product()
         {
-                
+
         }
 
         public Product(string name, string description, decimal price, int? stock, string? ımageUrl, int? categoryId)
@@ -37,13 +39,21 @@ namespace BelbimEShop.Catalog.Domain.Aggregates
             CategoryId = categoryId;
         }
 
-        public void ApplyDiscount(decimal discountRate) 
+        public Product(long id, string name, string description, decimal price, int? stock, string? ımageUrl, int? categoryId) : this(name, description, price, stock, ımageUrl, categoryId)
+        {
+            this.Id = id;
+
+        }
+
+
+
+        public void ApplyDiscount(decimal discountRate)
         {
             var oldPrice = Price;
             Price = Price * (1 - discountRate);
 
             //Burada olay fırlayacak!
-            ProductPriceDiscountedDomainEvent @event = new ProductPriceDiscountedDomainEvent(productId: Id, oldPrice: oldPrice,newPrice:Price);
+            ProductPriceDiscountedDomainEvent @event = new ProductPriceDiscountedDomainEvent(productId: Id, oldPrice: oldPrice, newPrice: Price);
             AddDomainEvent(@event);
 
             //Ürün resmi değiştiğinde

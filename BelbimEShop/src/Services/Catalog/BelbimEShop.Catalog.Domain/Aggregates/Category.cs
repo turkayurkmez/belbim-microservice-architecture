@@ -12,6 +12,8 @@ namespace BelbimEShop.Catalog.Domain.Aggregates
         public string Name { get; private set; }
         public string Description { get; private set; }
 
+        public ICollection<Product> Products { get; set; }
+
         public Category()
         {
             
@@ -27,5 +29,7 @@ namespace BelbimEShop.Catalog.Domain.Aggregates
         {
             this.Id = id;
         }
+
+
     }
 }
