@@ -1,4 +1,5 @@
 ﻿using BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProductPrice;
+using BelbimEShop.Catalog.Application.Features.Product.Queries.GetAllProducts;
 using BelbimEShop.Catalog.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,14 @@ namespace BelbimEShop.Catalog.API.Controllers
           
             return BadRequest(ModelState);
             
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            GetAllProductsRequest request = new GetAllProductsRequest();
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
 
