@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BelbimEShop.Catalog.Infrastructure.Repositories
 {
-    public class FakeProductRepository : IProductRepository
+    public class FakeProductRepository //: IProductRepository
     {
 
 

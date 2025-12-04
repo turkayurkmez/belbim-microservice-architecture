@@ -19,7 +19,7 @@ namespace BelbimEShop.Shared.Library.Contracts
         Task<T> CreateAsync(T entity);
 
         Task<T> UpdateAsync(T entity);
-        Task<T> DeleteAsync(T entity);
+        Task DeleteAsync(TId id);
 
 
 

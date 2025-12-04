@@ -1,4 +1,5 @@
 ﻿using BelbimEShop.Shared.Library.Domain;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BelbimEShop.Catalog.Domain.Events
 {
-    public class ProductPriceDiscountedDomainEvent : DomainEvent
+    public class ProductPriceDiscountedDomainEvent : DomainEvent, INotification
     {
         public long ProductId { get; set; }
         public decimal OldPrice { get; set; }
