@@ -1,3 +1,7 @@
+using BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProductPrice;
+using BelbimEShop.Catalog.Domain.Repositories;
+using BelbimEShop.Catalog.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<DiscountProductPriceCommandRequestHandler>();
+builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
+
 
 var app = builder.Build();
 

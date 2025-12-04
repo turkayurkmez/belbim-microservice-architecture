@@ -5,6 +5,7 @@
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.API/BelbimEShop.Catalog.API.csproj" />
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Application/BelbimEShop.Catalog.Application.csproj" />
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Domain/BelbimEShop.Catalog.Domain.csproj" />
+    <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Infrastructure/BelbimEShop.Catalog.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/BelbimEShop.Shared.Library/BelbimEShop.Shared.Library.csproj" />
