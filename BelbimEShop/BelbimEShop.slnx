@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/dockerCommands/">
+    <File Path="rabbitmq.sh" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/Catalog/">
@@ -8,6 +11,7 @@
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Infrastructure/BelbimEShop.Catalog.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/BelbimEShop.Shared.EventBus/BelbimEShop.Shared.EventBus.csproj" Id="1a9cdb19-d353-4807-b1f3-45fe47463408" />
     <Project Path="src/Shared/BelbimEShop.Shared.Library/BelbimEShop.Shared.Library.csproj" />
   </Folder>
 </Solution>

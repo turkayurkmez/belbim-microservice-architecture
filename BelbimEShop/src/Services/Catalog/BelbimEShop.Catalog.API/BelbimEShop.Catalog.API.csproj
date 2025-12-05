@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\BelbimEShop.Shared.EventBus\BelbimEShop.Shared.EventBus.csproj" />
     <ProjectReference Include="..\BelbimEShop.Catalog.Application\BelbimEShop.Catalog.Application.csproj" />
     <ProjectReference Include="..\BelbimEShop.Catalog.Infrastructure\BelbimEShop.Catalog.Infrastructure.csproj" />
   </ItemGroup>

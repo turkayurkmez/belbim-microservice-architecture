@@ -4,7 +4,11 @@ using BelbimEShop.Catalog.Domain.Repositories;
 using BelbimEShop.Catalog.Infrastructure.EventHandlers;
 using BelbimEShop.Catalog.Infrastructure.Persistance;
 using BelbimEShop.Catalog.Infrastructure.Repositories;
+using BelbimEShop.Shared.EventBus;
+using MassTransit;
+using MassTransit.Transports.Fabric;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +33,27 @@ builder.Services.AddMediatR(config =>
 var connectionString = builder.Configuration.GetConnectionString("db");
 
 builder.Services.AddDbContext<CatalogDbContext>(opt => opt.UseSqlServer(connectionString));
+builder.Services.AddMassTransit(configurator =>
+{
+    configurator.UsingRabbitMq((context, config) =>
+    {
+        config.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+
+        config.Publish<ProductPriceDiscountedIntegrationEvent>(tc =>
+        {
+            tc.Durable = true; //mesaj kalýcý olsun.
+            tc.AutoDelete = false; //Kuyruk otomatik silinmesin.
+            tc.ExchangeType = RabbitMQ.Client.ExchangeType.Fanout;
+        });
+    });
+
+
+});
 
 
 var app = builder.Build();
