@@ -2,6 +2,7 @@
 using BelbimEShop.Shared.Library.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,9 @@ namespace BelbimEShop.Catalog.Infrastructure.Persistance
 
                 );
 
-
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
 
         }
 

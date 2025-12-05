@@ -2,6 +2,9 @@
   <Folder Name="/dockerCommands/">
     <File Path="rabbitmq.sh" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="EventFlow.txt" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/Basket/">
@@ -15,6 +18,12 @@
   </Folder>
   <Folder Name="/src/Services/Order/">
     <Project Path="src/Services/Order/BelbimEShop.Order.API/BelbimEShop.Order.API.csproj" Id="255397af-20ac-40db-9672-15967189f58f" />
+  </Folder>
+  <Folder Name="/src/Services/Payment/">
+    <Project Path="src/Services/Payment/BelbimEShop.Payment.API/BelbimEShop.Payment.API.csproj" Id="42a498f9-a265-4d53-b56d-796d7068dc29" />
+  </Folder>
+  <Folder Name="/src/Services/Stock/">
+    <Project Path="src/Services/Stock/BelbimEShop.Stock.API/BelbimEShop.Stock.API.csproj" Id="ecb7bb7b-2e85-47ef-9b5f-f40174d4031a" />
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/BelbimEShop.Shared.EventBus/BelbimEShop.Shared.EventBus.csproj" Id="1a9cdb19-d353-4807-b1f3-45fe47463408" />

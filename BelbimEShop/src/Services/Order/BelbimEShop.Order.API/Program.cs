@@ -11,7 +11,27 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMassTransit(configurator =>
 {
     //1. Tüketiciyi (consumer) ekleyin
-    configurator.AddConsumer<OrderProductPriceDiscountConsumer>();
+    configurator.AddConsumer<OrderProductPriceDiscountConsumer>(c => {
+        //Tüketiciye özel yapýlandýrmalar burada yapýlabilir
+        //retry pattern:
+        c.UseMessageRetry(r =>
+        {
+            r.Intervals(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(15)); //3 kez, 5 saniye arayla yeniden dene
+            //r.Exponential(5, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(5)); //exponential backoff
+            r.Handle<TimeoutException>(); //Sadece TimeoutException durumunda yeniden dene();
+            //r.ConnectRetryObserver(new OrderRetryObserver(builder.Logging.CreateLogger<OrderRetryObserver>())); //Özel retry gözlemcisi ekle
+        });
+
+        //Circuit Breaker pattern:
+        c.UseCircuitBreaker(cb =>
+        {
+            cb.TrackingPeriod = TimeSpan.FromMinutes(1); //1 dakika boyunca baþarýsýzlýklarý takip et
+            cb.TripThreshold = 5; //5 kez baþarýsýz olursa devre kesilsin
+            cb.ActiveThreshold = 10; //Devre kesici aktif olmasý için en az 10 istek olmalý
+            cb.ResetInterval = TimeSpan.FromMinutes(5); //Devre kesildikten sonra 5 dakika sonra tekrar denesin
+        });
+
+    });
     configurator.UsingRabbitMq((context, config) =>
     {
       

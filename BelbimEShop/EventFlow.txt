@@ -1,0 +1,18 @@
+
+
+Sipariş süreci için olay akışı:
+
+-- Mutlu yol:
+   1. Sipariş mikroservisine sipariş bilgileri gönderilir.
+   2. Stok mikroservisi, sipariş edilen ürünlerin stok kontrolünü yapar.
+   3. Eğer Stokta yeterli miktarda ürün varsa ödeme servisine ödeme bilgileri gönderilir.
+   4. Ödeme mikroservisi ödemeyi tamamladıktan sonra Sipariş microservisine bilgi gönderir.
+   5. Sipariş mikroservisinde sipariş onaylanır..
+
+-- Mutsuz yol :( 
+   1. Sipariş mikroservisine sipariş bilgileri gönderilir.
+   2. Stok mikroservisi, sipariş edilen ürünlerin stok kontrolünü yapar.
+   3. Stokta yoksa -> Sipariş mikroservisine gider be yetersiz stok -> reddedildi.
+   4. Ödeme yapılamazsa -> Sipariş m. 'e git ve ödeme yapılamadı ->reddedildi.
+
+

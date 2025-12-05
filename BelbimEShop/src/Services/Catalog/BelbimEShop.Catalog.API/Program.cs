@@ -35,6 +35,20 @@ var connectionString = builder.Configuration.GetConnectionString("db");
 builder.Services.AddDbContext<CatalogDbContext>(opt => opt.UseSqlServer(connectionString));
 builder.Services.AddMassTransit(configurator =>
 {
+
+    //Outbox pattern:
+    //Eðer gönderici, rabbitmq'ya mesaj gönderemezse... son olaylarý db'ye kaydetsin. Uygulama yeniden ayaða kalktýðýnda bütün kayýtlarý göndersin
+
+    configurator.AddEntityFrameworkOutbox<CatalogDbContext>(o =>
+    {
+        o.UseSqlServer();
+        o.UseBusOutbox(); // masstransit üzerinden gönderilmeye çalýþan fakat baþarýsýz olan olaylar db'ye kaydedilir.
+        o.QueryDelay = TimeSpan.FromMinutes(2);
+      
+
+    });
+
+
     configurator.UsingRabbitMq((context, config) =>
     {
         config.Host("localhost", "/", h =>
