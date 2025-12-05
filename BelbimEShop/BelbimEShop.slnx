@@ -4,11 +4,17 @@
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Basket/">
+    <Project Path="src/Services/Basket/BelbimEShop.Basket.API/BelbimEShop.Basket.API.csproj" Id="5d61beab-de5b-4774-b518-4c7f77dd6509" />
+  </Folder>
   <Folder Name="/src/Services/Catalog/">
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.API/BelbimEShop.Catalog.API.csproj" />
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Application/BelbimEShop.Catalog.Application.csproj" />
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Domain/BelbimEShop.Catalog.Domain.csproj" />
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Infrastructure/BelbimEShop.Catalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Order/">
+    <Project Path="src/Services/Order/BelbimEShop.Order.API/BelbimEShop.Order.API.csproj" Id="255397af-20ac-40db-9672-15967189f58f" />
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/BelbimEShop.Shared.EventBus/BelbimEShop.Shared.EventBus.csproj" Id="1a9cdb19-d353-4807-b1f3-45fe47463408" />

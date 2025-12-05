@@ -1,0 +1,6 @@
+@BelbimEShop.Order.API_HostAddress = http://localhost:5268
+
+GET {{BelbimEShop.Order.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
