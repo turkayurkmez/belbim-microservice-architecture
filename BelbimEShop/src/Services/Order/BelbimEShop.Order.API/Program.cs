@@ -12,6 +12,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(configurator =>
 {
+
+
+    configurator.AddConsumer<StockUnavailableConsumer>();
+    configurator.AddConsumer<PaymentSuccessfulConsumer>();
+    configurator.AddConsumer<PaymentFailedConsumer>();
     //1. Tüketiciyi (consumer) ekleyin
     configurator.AddConsumer<OrderProductPriceDiscountConsumer>(c => {
         //Tüketiciye özel yapýlandýrmalar burada yapýlabilir
@@ -34,6 +39,9 @@ builder.Services.AddMassTransit(configurator =>
         });
 
     });
+
+
+
     configurator.UsingRabbitMq((context, config) =>
     {
       
@@ -49,6 +57,9 @@ builder.Services.AddMassTransit(configurator =>
 
             e.ConfigureConsumer<OrderProductPriceDiscountConsumer>(context);
         });
+
+        //BUNU UNUTTUÐUM ÝÇÝN EN AZ 20 DK KAYBETTÝM!!!
+        config.ConfigureEndpoints(context);
 
     });
 });
@@ -67,7 +78,7 @@ if (app.Environment.IsDevelopment())
 app.MapPost("/createOrder", async (IPublishEndpoint publishEndpoint, CreateOrderRequest request) =>
 {
 
-    var orderItems = request.OrderItems.Select(o => new OrderItemInEvent(o.ProductId, o.Quantity, o.Price);
+    var orderItems = request.OrderItems.Select(o => new OrderItemInEvent(o.ProductId, o.Quantity, o.Price));
 
     var orderId = new Random().Next(1000, 10000);
 

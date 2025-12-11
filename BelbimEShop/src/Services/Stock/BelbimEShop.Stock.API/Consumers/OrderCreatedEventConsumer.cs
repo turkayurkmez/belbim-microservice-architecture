@@ -6,10 +6,12 @@ namespace BelbimEShop.Stock.API.Consumers
     public class OrderCreatedEventConsumer : IConsumer<OrderCreatedEvent>
     {
         private readonly IPublishEndpoint publishEndpoint;
+        private readonly ILogger<OrderCreatedEventConsumer> logger;
 
-        public OrderCreatedEventConsumer(IPublishEndpoint publishEndpoint)
+        public OrderCreatedEventConsumer(IPublishEndpoint publishEndpoint, ILogger<OrderCreatedEventConsumer> logger)
         {
             this.publishEndpoint = publishEndpoint;
+            this.logger = logger;
         }
 
         public async Task Consume(ConsumeContext<OrderCreatedEvent> context)
@@ -23,10 +25,14 @@ namespace BelbimEShop.Stock.API.Consumers
                 var @event = new StockAvailableEvent(command);
 
                 await publishEndpoint.Publish(@event);
+
+                logger.LogInformation($"STOK API: {message.OrderId} için stok durumu kontrol edildi.");
             }
             else
             {
                 var @event = new StockUnavailableEvent(message.OrderId, "Ürün stoğu yetersiz");
+
+                logger.LogInformation($"STOK API: {message.OrderId} için stok yetersiz.");
                 await publishEndpoint.Publish(@event);
             }
 

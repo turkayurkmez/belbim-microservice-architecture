@@ -1,3 +1,4 @@
+using BelbimEShop.Stock.API.Consumers;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(configurator =>
 {
-    configurator.AddConsumer<>();
+    //TODO 1: Burada, alýcýyý (Consumer) kaydetmeyi unutma
+    configurator.AddConsumer<OrderCreatedEventConsumer>();
     configurator.UsingRabbitMq((context, config) =>
     {
 
