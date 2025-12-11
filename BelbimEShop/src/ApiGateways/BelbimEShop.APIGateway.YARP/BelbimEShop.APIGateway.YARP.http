@@ -1,0 +1,71 @@
+@BelbimEShop.APIGateway.YARP_HostAddress = http://localhost:5095
+
+### Catalog Service - Get All Products
+GET {{BelbimEShop.APIGateway.YARP_HostAddress}}/products
+Accept: application/json
+
+###
+
+### Catalog Service - Get Product by ID
+GET {{BelbimEShop.APIGateway.YARP_HostAddress}}/products/3
+Accept: application/json
+
+###
+
+### Catalog Service - Search Products
+GET {{BelbimEShop.APIGateway.YARP_HostAddress}}/products/search?query=laptop
+Accept: application/json
+
+###
+
+### Order Service - Create Order
+POST {{BelbimEShop.APIGateway.YARP_HostAddress}}/orders/createOrder
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerId": "abc123",
+  "orderItems": [
+    {
+      "productId": 1,
+      "quantity": 1,
+      "price": 1
+    }
+  ]
+}
+###
+
+### Order Service - Create Order with Address
+POST {{BelbimEShop.APIGateway.YARP_HostAddress}}/orders/create
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerId": "customer-456",
+  "shippingAddress": {
+    "street": "Atatürk Cad. No:123",
+    "city": "Ýstanbul",
+    "postalCode": "34000",
+    "country": "Turkey"
+  },
+  "items": [
+    {
+      "productId": 3,
+      "quantity": 1,
+      "price": 2500.00
+    }
+  ]
+}
+
+###
+
+### Order Service - Get Order Status
+POST {{BelbimEShop.APIGateway.YARP_HostAddress}}/orders/status
+Content-Type: application/json
+Accept: application/json
+
+{
+  "orderId": "order-789"
+}
+
+###

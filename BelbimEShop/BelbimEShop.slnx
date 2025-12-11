@@ -3,9 +3,13 @@
     <File Path="rabbitmq.sh" />
   </Folder>
   <Folder Name="/Solution Items/">
+    <File Path="Endpoints.txt" />
     <File Path="EventFlow.txt" />
   </Folder>
   <Folder Name="/src/" />
+  <Folder Name="/src/ApiGateway/">
+    <Project Path="src/ApiGateways/BelbimEShop.APIGateway.YARP/BelbimEShop.APIGateway.YARP.csproj" Id="24b084b3-a680-4b4a-893b-0006fdc12355" />
+  </Folder>
   <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/Basket/">
     <Project Path="src/Services/Basket/BelbimEShop.Basket.API/BelbimEShop.Basket.API.csproj" Id="5d61beab-de5b-4774-b518-4c7f77dd6509" />

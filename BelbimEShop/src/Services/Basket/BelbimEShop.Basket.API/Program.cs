@@ -1,4 +1,5 @@
 using BelbimEShop.Basket.API.Consumers;
+using BelbimEShop.Basket.API.Services;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,7 +34,11 @@ builder.Services.AddMassTransit(configurator =>
     });
 });
 
+builder.Services.AddGrpc();
+
 var app = builder.Build();
+
+app.MapGrpcService<CustomBasketService>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,0 +1,6 @@
+
+
+1. Catalog: http://localhost:5010/api/products       VERBS: GET, POST, PUT, DELETE
+2. Order: http://http://localhost:5268/createOrder   POST
+3. Stock: http://localhost:5278      --
+4. Payment: http://localhost:5038/   -- 
