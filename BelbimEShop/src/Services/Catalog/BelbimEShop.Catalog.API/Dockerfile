@@ -1,0 +1,34 @@
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["src/Services/Catalog/BelbimEShop.Catalog.API/BelbimEShop.Catalog.API.csproj", "src/Services/Catalog/BelbimEShop.Catalog.API/"]
+COPY ["src/Shared/BelbimEShop.Shared.EventBus/BelbimEShop.Shared.EventBus.csproj", "src/Shared/BelbimEShop.Shared.EventBus/"]
+COPY ["src/Services/Catalog/BelbimEShop.Catalog.Application/BelbimEShop.Catalog.Application.csproj", "src/Services/Catalog/BelbimEShop.Catalog.Application/"]
+COPY ["src/Services/Catalog/BelbimEShop.Catalog.Domain/BelbimEShop.Catalog.Domain.csproj", "src/Services/Catalog/BelbimEShop.Catalog.Domain/"]
+COPY ["src/Shared/BelbimEShop.Shared.Library/BelbimEShop.Shared.Library.csproj", "src/Shared/BelbimEShop.Shared.Library/"]
+COPY ["src/Services/Catalog/BelbimEShop.Catalog.Infrastructure/BelbimEShop.Catalog.Infrastructure.csproj", "src/Services/Catalog/BelbimEShop.Catalog.Infrastructure/"]
+RUN dotnet restore "./src/Services/Catalog/BelbimEShop.Catalog.API/BelbimEShop.Catalog.API.csproj"
+COPY . .
+WORKDIR "/src/src/Services/Catalog/BelbimEShop.Catalog.API"
+RUN dotnet build "./BelbimEShop.Catalog.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./BelbimEShop.Catalog.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "BelbimEShop.Catalog.API.dll"]

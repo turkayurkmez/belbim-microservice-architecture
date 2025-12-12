@@ -1,0 +1,71 @@
+services:
+
+  ms-sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    
+  belbimeshop.catalog.api:
+    image: ${DOCKER_REGISTRY-}belbimeshopcatalogapi
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/BelbimEShop.Catalog.API/Dockerfile
+
+    environment:
+       DefaultHost: "ms-sql-server"
+       DefaultPass: "Your_password123"
+       DefaultMQ: "rabbitmq"
+    depends_on:
+      - ms-sql-server       
+      - rabbitmq
+
+
+
+  belbimeshop.apigateway.yarp:
+    image: ${DOCKER_REGISTRY-}belbimeshopapigatewayyarp
+    build:
+      context: .
+      dockerfile: src/ApiGateways/BelbimEShop.APIGateway.YARP/Dockerfile
+    
+
+  belbimeshop.order.api:
+    image: ${DOCKER_REGISTRY-}belbimeshoporderapi
+    build:
+      context: .
+      dockerfile: src/Services/Order/BelbimEShop.Order.API/Dockerfile
+    depends_on:
+      - ms-sql-server       
+      - rabbitmq
+     
+
+
+  belbimeshop.payment.api:
+    image: ${DOCKER_REGISTRY-}belbimeshoppaymentapi
+    build:
+      context: .
+      dockerfile: src/Services/Payment/BelbimEShop.Payment.API/Dockerfile
+    depends_on:
+      - ms-sql-server       
+      - rabbitmq
+
+
+  belbimeshop.stock.api:
+    image: ${DOCKER_REGISTRY-}belbimeshopstockapi
+    build:
+      context: .
+      dockerfile: src/Services/Stock/BelbimEShop.Stock.API/Dockerfile    
+    depends_on:
+      - ms-sql-server       
+      - rabbitmq
+      
+

@@ -1,3 +1,4 @@
+using BelbimEShop.Catalog.API;
 using BelbimEShop.Catalog.Application.Contracts;
 using BelbimEShop.Catalog.Application.Features.Product.Commands.DiscountProductPrice;
 using BelbimEShop.Catalog.Domain.Repositories;
@@ -31,6 +32,11 @@ builder.Services.AddMediatR(config =>
 
 
 var connectionString = builder.Configuration.GetConnectionString("db");
+connectionString = connectionString?.Replace("{{HOST}}", builder.Configuration["DefaultHost"])
+                                    .Replace("{{PASS}}", builder.Configuration["DefaultPass"]);
+
+
+var rabbitMqConnectionString = builder.Configuration.GetConnectionString("DefaultMQ");
 
 builder.Services.AddDbContext<CatalogDbContext>(opt => opt.UseSqlServer(connectionString));
 builder.Services.AddMassTransit(configurator =>
@@ -51,7 +57,7 @@ builder.Services.AddMassTransit(configurator =>
 
     configurator.UsingRabbitMq((context, config) =>
     {
-        config.Host("localhost", "/", h =>
+        config.Host("rabbitmq", "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
@@ -72,6 +78,12 @@ builder.Services.AddMassTransit(configurator =>
 
 var app = builder.Build();
 
+//connectionString bilgisini log'da göster:
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("DÝKKATT BAÐLANTI CÜMLESÝ!!!!: {ConnectionString}", connectionString);
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -82,5 +94,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+await DatabaseInitializer.InitializeAsync(app);
 
 app.Run();

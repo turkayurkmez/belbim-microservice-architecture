@@ -20,6 +20,9 @@
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Domain/BelbimEShop.Catalog.Domain.csproj" />
     <Project Path="src/Services/Catalog/BelbimEShop.Catalog.Infrastructure/BelbimEShop.Catalog.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/Services/Identity/">
+    <Project Path="src/Services/Identity/BelbimEShop.Identity.API/BelbimEShop.Identity.API.csproj" Id="923de9b9-09e0-43aa-8a70-db71aea2c342" />
+  </Folder>
   <Folder Name="/src/Services/Order/">
     <Project Path="src/Services/Order/BelbimEShop.Order.API/BelbimEShop.Order.API.csproj" Id="255397af-20ac-40db-9672-15967189f58f" />
   </Folder>
@@ -33,4 +36,7 @@
     <Project Path="src/Shared/BelbimEShop.Shared.EventBus/BelbimEShop.Shared.EventBus.csproj" Id="1a9cdb19-d353-4807-b1f3-45fe47463408" />
     <Project Path="src/Shared/BelbimEShop.Shared.Library/BelbimEShop.Shared.Library.csproj" />
   </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
 </Solution>
